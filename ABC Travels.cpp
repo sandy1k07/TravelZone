@@ -136,7 +136,7 @@ public:
                 cout << "Goto Menu to take the receipt" << endl;
             }
             else if(hireCab == 2){
-                cabDetails();
+                cabDetails(); // cab details
             }
             else{
                 cout << "Invalid Input! Redirecting to Previous Menu \nPlease Wait!" << endl;
