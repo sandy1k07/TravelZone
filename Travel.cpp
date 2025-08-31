@@ -1,7 +1,6 @@
-#include<iostream>
-#include<fstream>
-#include<iomanip>
 #include<windows.h>
+#include <bits/stdc++.h>
+
 using namespace std;
 
 void menu();//main menu function prototype
@@ -9,29 +8,49 @@ void menu();//main menu function prototype
 class ManageMenu
 {
 protected:
-    string userName; //hide admin name
+    string admin = "Corsair";
+    string password = "Wanderer";
+    int attempts;
 
 public:
 
-    //virtual void menu(){}
+    ManageMenu():attempts(0){}
 
-    ManageMenu()
-    {
+    void runMenu(){
+        attempts++;
+        string userName, pass;
         system("color 0A"); //change terminal color
         cout << "\n\n\n\n\n\n\n\n\n\t  Enter Your Name to Continue as an Admin: ";
         cin >> userName;
+        cout<<"\n\t  Enter password: ";
+        cin>>pass;
         system("CLS");
-        menu(); //call to main function to load after executing the constructr
+
+        if(userName == admin && pass == password){
+            menu(); //call to main function to load after executing the constructr
+        }
+        else{
+            if(attempts == 3){
+                cout << "Invalid Admin Credentials! Maximum attempts reached \nClosing the terminal!" << endl;
+                Sleep(1100);
+                exit(0);
+            }
+            cout << "Invalid Admin Credentials! Redirecting to Login Menu \nPlease Wait!" << endl;
+            Sleep(1100);
+            system("CLS");
+            runMenu();
+        }
     }
 
-    ~ManageMenu(){} //de
+    ~ManageMenu(){} //destructor
 };
 
 class Customer
 {
 public:
     string name, gender, address;
-    int age, mobileNo, menuBack;
+    int age, menuback;
+    long long int mobileNo;
     static int cusID;
     char all[999];
 
@@ -41,16 +60,23 @@ public:
         {
             cout << "\nEnter Customer ID: ";
             cin >> cusID;
+            cin.ignore(); // clear leftover newline
+
             cout << "Enter Name: ";
-            cin >> name;
+            getline(cin, name);
+
             cout << "Enter Age: ";
             cin >> age;
+
             cout << "Enter Mobile Number: ";
             cin >> mobileNo;
-            cout << "Address: ";
-            cin >> address;
-            cout << "Gender: ";
-            cin >> gender;
+            cin.ignore();
+
+            cout << "Enter Address: ";
+            getline(cin, address);
+
+            cout << "Enter Gender: ";
+            cin>>gender;
         }
         out << "\nCustomer ID: " << cusID << "\nName: " << name << "\nAge: " << age << "\nMobile Number: " << mobileNo << "\nAddress: " << address << "\nGender: " << gender << endl;
         out.close();
@@ -87,7 +113,7 @@ public:
     void cabDetails()
     {
         cout << "We collaborated with fastest, safest, and smartest cab service arround the country" << endl;
-        cout << "-----------ABC Cabs-----------\n" << endl;
+        cout << "-----------UBER-----------\n" << endl;
         cout << "1. Rent a Standard Cab - Rs.15 for 1KM" << endl;
         cout << "2. Rent a Luxury Cab - Rs.25 per 1KM" << endl;
 
@@ -176,7 +202,7 @@ public:
 
     void hotels()
     {
-        string hotelNo[] = {"Avendra", "ChoiceYou", "ElephantBay"};
+        string hotelNo[] = {"Star Inn", "Ramada", "The Lalit"};
         for(int a = 0; a < 3; a++)
         {
             cout << (a+1) <<". Hotel " << hotelNo[a] << endl;
@@ -190,18 +216,18 @@ public:
         system("CLS");
 
         if(choiceHotel == 1){
-            cout << "-------WELCOME TO HOTEL AVENDRA-------\n" << endl;
+            cout << "-------WELCOME TO HOTEL Star Inn-------\n" << endl;
 
             cout << "The Garden, food and beverage. Enjoy all you can drink, Stay cool and get chilled in the summer sun." << endl;
 
-            cout << "Packages offered by Avendra:\n" << endl;
+            cout << "Packages offered by Star Inn:\n" << endl;
 
             cout << "1. Standard Pack" << endl;
             cout << "\tAll basic facilities you need just for: Rs.5000.00" << endl;
             cout << "2. Premium Pack" << endl;
             cout << "\tEnjoy Premium: Rs.10000.00" << endl;
             cout << "3. Luxury Pack" << endl;
-            cout << "\tLive a Luxury at Avendra: Rs.15000.00" << endl;
+            cout << "\tLive a Luxury at Star Inn: Rs.15000.00" << endl;
 
 
             cout << "\nPress another key to back or\nEnter Package number you want to book: ";
@@ -209,17 +235,17 @@ public:
 
             if (packChoice1 == 1){
                 hotelCost = 5000.00;
-                cout << "\nYou have successfully booked Standard Pack at Avendra" << endl;
+                cout << "\nYou have successfully booked Standard Pack at Star Inn" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else if (packChoice1 == 2){
                 hotelCost = 10000.00;
-                cout << "\nYou have successfully booked Premium Pack at Avendra" << endl;
+                cout << "\nYou have successfully booked Premium Pack at Star Inn" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else if (packChoice1 == 3){
                 hotelCost = 15000.00;
-                cout << "\nYou have successfully booked Luxury Pack at Avendra" << endl;
+                cout << "\nYou have successfully booked Luxury Pack at Star Inn" << endl;
                 cout << "Goto Menu to take the receipt" << endl;
             }
             else{
@@ -241,11 +267,11 @@ public:
             }
         }
         else if(choiceHotel == 2){
-            cout << "-------WELCOME TO HOTEL CHOICEYOU-------\n" << endl;
+            cout << "-------WELCOME TO HOTEL Ramada-------\n" << endl;
 
             cout << "Swimming Pool | Free WiFi | Family Rooms \n Fitness Center | Restaurant & Bar" << endl;
 
-            cout << "Packages Offered by ChoiceYou:\n" << endl;
+            cout << "Packages Offered by Ramada:\n" << endl;
 
             cout << "1. Family Pack" << endl;
             cout << "\t Rs.15000.00 for a day" << endl;
@@ -259,17 +285,17 @@ public:
 
             if (packChoice1 == 1){
                 hotelCost = 15000.00;
-                cout << "You have successfully booked Family Pack at ChoiceYou" << endl;
+                cout << "You have successfully booked Family Pack at Ramada" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else if (packChoice1 == 2){
                 hotelCost = 10000.00;
-                cout << "You have successfully booked Couple Pack at ChoiceYou" << endl;
+                cout << "You have successfully booked Couple Pack at Ramada" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else if (packChoice1 == 3){
                 hotelCost = 5000.00;
-                cout << "You have successfully booked Single Pack at ChoiceYou" << endl;
+                cout << "You have successfully booked Single Pack at Ramada" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else{
@@ -290,7 +316,7 @@ public:
             }
         }
         else if(choiceHotel == 3){
-            cout << "-------WELCOME TO HOTEL ELEPHANTBAY-------\n" << endl;
+            cout << "-------WELCOME TO HOTEL The Lalit-------\n" << endl;
             cout << "Set in tropical gardens on the banks of the Maha Oya river While Seeing Elephants" << endl;
             cout << "Amazing offer in this summer: Rs.5000.00 for a one day!!!" << endl;
 
@@ -299,7 +325,7 @@ public:
 
             if (packChoice1 == 1){
                 hotelCost = 5000.00;
-                cout << "You have successfully booked ElephantBay Special Pack" << endl;
+                cout << "You have successfully booked The Lalit Special Pack" << endl;
                 cout << "Goto Menu and take the receipt" << endl;
             }
             else{
@@ -338,7 +364,7 @@ public:
     {
         ofstream outf("receipt.txt"); //receipt for bought items
         {
-            outf << "--------ABC Travel Agency--------" << endl;
+            outf << "--------TravelZone Travel Agency--------" << endl;
             outf << "-------------Receipt-------------" << endl;
             outf << "_________________________________" << endl;
 
@@ -486,9 +512,7 @@ void menu() //menu function contain main menu
 int main()
 {
     ManageMenu startObj;
+    startObj.runMenu();
     return 0;
 }
 
-/*
-Used IDE: CodeBlocks
-*/
